@@ -23,8 +23,8 @@ RUN mkdir /app && \
     cd /app
 
 ENV TSFILE=tailscale_1.10.0_amd64.tgz
-RUN wget https://pkgs.tailscale.com/stable/${TSFILE} && \
-    tar xzf ${TSFILE} --strip-components=1
+RUN wget https://pkgs.tailscale.com/stable/${TSFILE}
+RUN tar xzf ${TSFILE} --strip-components=1
 
 RUN cp /app/tailscaled /usr/local/bin/tailscaled
 RUN cp /app/tailscale /usr/local/bin/tailscale

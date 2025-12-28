@@ -1,0 +1,51 @@
+#!/bin/bash
+### BEGIN INIT INFO
+# Provides:          myservice
+# Required-Start:    $remote_fs $syslog
+# Required-Stop:     $remote_fs $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: My custom service
+# Description:       This service starts and stops my custom application.
+### END INIT INFO
+
+NAME="tailscale"
+COMMAND="start.sh"
+USER="root"
+LOGFILE="/var/log/$NAME.log"
+
+# Source function library (helpful for standard functions on Red Hat systems)
+[ -f /etc/init.d/functions ] && . /etc/init.d/functions
+
+start() {
+  echo "Starting $NAME"
+  su - $USER -c "$COMMAND &> $LOGFILE &"
+}
+
+stop() {
+  echo "Stopping $NAME"
+  # Code to stop your application (e.g., killproc on Red Hat, or pkill/kill with PID file)
+  pkill -u $USER $(basename $COMMAND) 
+}
+
+case "$1" in
+  start)
+    start
+    ;;
+  stop)
+    stop
+    ;;
+  restart)
+    stop
+    start
+    ;;
+  status)
+    # Code to check status (e.g., status program_name on Red Hat)
+    pkill -u $USER -0 $(basename $COMMAND) && echo "$NAME is running" || echo "$NAME is stopped"
+    ;;
+  *)
+    echo "Usage: $0 {start|stop|status|restart}"
+    exit 1
+    ;;
+esac
+exit 0

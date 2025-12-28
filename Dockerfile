@@ -35,4 +35,4 @@ RUN mkdir -p /var/lib/tailscale
 
 EXPOSE 22
 CMD    ["/usr/sbin/sshd", "-D"]
-CMD    ["start.sh"]
+CMD    ["start.sh", "-D"]

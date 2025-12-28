@@ -16,7 +16,7 @@ sysctl -p /etc/sysctl.conf
 
 RUN wget https://raw.githubusercontent.com/shamy-kurniawan/tailscale-non-root/refs/heads/main/start.sh
 
-RUN cmod +x start.sh && \
+RUN chmod +x start.sh && \
     mv start.sh /usr/local/bin/start.sh
 
 RUN mkdir /app && \
